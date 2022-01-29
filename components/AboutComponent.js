@@ -2,27 +2,28 @@ import { UserInterfaceIdiom } from "expo-constants";
 import React, { Component } from "react";
 import { Card } from "react-native-elements";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { PARTNERS } from '../shared/partners';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return {
+        partners: state.partners
+    };
+};
 
 class About extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            partners: PARTNERS
-        };
-    }
 
     static navigationOptions = {
         title: 'About Us'
     };
 
     render() {
-        const renderPartner = ({partner}) => {
+        const renderPartner = ({item}) => {
             return (
                 <ListItem
-                    title={partner.name}
-                    subtitle={partner.description}
-                    leftAvatar={{ source: require('./images/bootstrap-logo.png')}}
+                    title={item.name}
+                    subtitle={item.description}
+                    leftAvatar={{ source: {uri: baseUrl + item.image}}}
                 />
             );
         };
@@ -31,7 +32,7 @@ class About extends Component {
             <Card
                 title={"Community Partners"}>
                 <FlatList
-                    data={this.state.partners}
+                    data={this.props.partners.partners}
                     renderItem={renderPartner}
                     keyExtractor={partner => partner.id.toString()}
             />
@@ -50,4 +51,4 @@ function Mission(props) {
     );
 }
 
-export default About;
+export default connect(mapStateToProps)(About);
