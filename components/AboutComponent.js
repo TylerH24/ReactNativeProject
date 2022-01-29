@@ -2,7 +2,7 @@ import { UserInterfaceIdiom } from "expo-constants";
 import React, { Component } from "react";
 import { Card } from "react-native-elements";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { PARTNERS } from '../shared/partners.js';
+import { PARTNERS } from '../shared/partners';
 
 class About extends Component {
     constructor(props) {
